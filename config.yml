@@ -1,0 +1,17 @@
+queue:
+  prefix: "queue"
+  delay: 50
+
+minio:
+  endPoint: "minio"
+  port: 9000
+  useSSL: false
+  accessKey: minioadmin
+  secretKey: minioadmin
+  region: your-region
+
+db:
+  host: db
+  database: db
+  username: db
+  password: db

@@ -1,0 +1,12 @@
+name: minio
+repository: oblakstudio/ddev-minio
+version: v1.2.3
+install_date: "2023-09-17T18:44:33+02:00"
+project_files:
+    - docker-compose.minio-norouter.yaml
+    - docker-compose.minio.yaml
+    - minio/config.env
+    - commands/host/minio
+    - commands/minio/mc
+global_files: []
+removal_actions: []

@@ -1,0 +1,43 @@
+# MinIO addon for DDEV
+version: "3"
+services:
+  minio:
+    container_name: ddev-${DDEV_SITENAME}-minio
+    image: minio/minio:latest
+    restart: "no"
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    expose:
+      - "9999:9999"
+      - "9000:9000"
+    command: 
+      - minio
+      - server
+      - --address
+      - :9000
+      - --console-address
+      - :9999
+      - /data
+    volumes:
+      - "minio:/data"
+      - ".:/mnt/ddev_config"
+    environment:
+      MINIO_SERVER_URL: "${DDEV_PRIMARY_URL}:9000"
+      MINIO_BROWSER_REDIRECT_URL: "${DDEV_PRIMARY_URL}:9999"
+      VIRTUAL_HOST: "$DDEV_HOSTNAME"
+      HTTP_EXPOSE: "9999:9999,9000:9000"
+      HTTPS_EXPOSE: "9999:9999,9000:9000"
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadmin"
+      MINIO_VOLUMES: "/data"
+    healthcheck:
+      interval: 120s
+      timeout: 2s
+      retries: 1
+
+volumes:
+  minio:
+    name: ddev-${DDEV_SITENAME}-minio
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
